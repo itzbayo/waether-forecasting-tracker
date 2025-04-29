@@ -1,0 +1,58 @@
+[project]
+name = 'real_time_weather_forecast'
+description = ''
+authors = []
+telemetry = true
+cache_dir = './.cache'
+requirements = []
+[contracts.admin]
+path = 'contracts/admin.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.real_time_forecast]
+path = 'contracts/real_time_forecast.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.reward-query]
+path = 'contracts/reward-query.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.reward-transfer]
+path = 'contracts/reward-transfer.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.user-reward]
+path = 'contracts/user-reward.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.weather]
+path = 'contracts/weather.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.weather-query]
+path = 'contracts/weather-query.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.weather-submit]
+path = 'contracts/weather-submit.clar'
+clarity_version = 3
+epoch = 3.1
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+[repl.remote_data]
+enabled = false
+api_url = 'https://api.hiro.so'
