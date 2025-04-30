@@ -10,6 +10,35 @@ This project implements a set of smart contracts that allow users to submit weat
 
 The project is organized into several modular contracts, each with a specific responsibility:
 
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│                 │     │                 │     │                 │
+│  weather.clar   │◄────┤weather-submit.clar├────►user-reward.clar │
+│  (Data Storage) │     │(Submission Logic)│     │ (Reward Tracking)│
+│                 │     │                 │     │                 │
+└────────┬────────┘     └────────┬────────┘     └────────┬────────┘
+         │                       │                       │
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│                 │     │                 │     │                 │
+│weather-query.clar│     │reward-transfer.clar│     │reward-query.clar│
+│  (Data Queries) │     │ (Token Transfer) │     │ (Reward Queries)│
+│                 │     │                 │     │                 │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+                                │
+                                │
+                                ▼
+                        ┌─────────────────┐
+                        │                 │
+                        │   admin.clar    │
+                        │(Admin Controls) │
+                        │                 │
+                        └─────────────────┘
+```
+
+The `real_time_forecast.clar` contract is a simplified version that combines the core functionality of several of these contracts.
+
 ### 1. Weather Data Storage (`weather.clar`)
 - Stores weather data submitted by users
 - Maps reporter and timestamp to location, temperature, and condition
@@ -108,6 +137,24 @@ Users can check their earned rewards:
 - Users receive 1,000,000 microSTX (1 STX) for each weather data submission
 - Rewards are tracked in a user rewards map and transferred immediately
 - The admin account is responsible for funding the rewards
+
+## Security Considerations
+
+### Data Validation
+- All user inputs are validated before processing
+- Temperature values have no specific range restrictions but could be implemented
+- Location data is limited to 32 bytes
+- Weather condition descriptions are limited to 32 ASCII characters
+
+### Access Control
+- Admin functions are protected by principal checks
+- Only the contract owner can update reward parameters
+- Anyone can submit weather data, but each submission is tied to their principal
+
+### Potential Improvements
+- Implement a verification mechanism for weather data accuracy
+- Add rate limiting to prevent spam submissions
+- Implement a more sophisticated reward system based on data quality
 
 ## License
 
